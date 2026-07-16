@@ -19,7 +19,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git branch: "${GIT_BRANCH}", url: "${GIT_REPO}", credentialsId: 'GITHUB'
+                git branch: "${GIT_BRANCH}", url: "${GIT_REPO}", credentialsId: 'github-creds'
             }
         }
         stage('SonarQube Analysis') {
@@ -62,9 +62,15 @@ pipeline {
         }
         stage('Push to Artifact Registry') {
             steps {
-                withCredentials([file(credentialsId: 'GCP_SA_KEY', variable: 'SA_KEY')]) {
-                    sh '''
-                        gcloud auth activate-service-account --key-file=${SA_KEY}
+        stage('Push to Artifact Registry') {
+            steps {
+                sh '''
+                    gcloud auth configure-docker -docker.pkg.dev --quiet
+                    docker tag : :
+                    docker push :
+                '''
+            }
+        }
                         gcloud auth configure-docker ${AR_LOCATION}-docker.pkg.dev --quiet
                         docker tag ${IMAGE_NAME}:${BUILD_NUMBER} ${AR_IMAGE}:${BUILD_NUMBER}
                         docker push ${AR_IMAGE}:${BUILD_NUMBER}
