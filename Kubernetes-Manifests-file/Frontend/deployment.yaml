@@ -21,11 +21,9 @@ spec:
       labels:
         role: frontend
     spec: 
-      imagePullSecrets:
-      - name: ecr-registry-secret
       containers:
       - name: frontend
-        image: 407622020962.dkr.ecr.us-east-1.amazonaws.com/frontend:3
+        image: us-central1-docker.pkg.dev/project-e68c2595-021c-4ce6-b62/three-tier-repo/frontend:1
         imagePullPolicy: Always
         env:
           - name: REACT_APP_BACKEND_URL
