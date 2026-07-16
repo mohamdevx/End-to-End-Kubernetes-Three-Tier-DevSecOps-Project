@@ -62,20 +62,11 @@ pipeline {
         }
         stage('Push to Artifact Registry') {
             steps {
-        stage('Push to Artifact Registry') {
-            steps {
                 sh '''
-                    gcloud auth configure-docker -docker.pkg.dev --quiet
-                    docker tag : :
-                    docker push :
+                    gcloud auth configure-docker ${AR_LOCATION}-docker.pkg.dev --quiet
+                    docker tag ${IMAGE_NAME}:${BUILD_NUMBER} ${AR_IMAGE}:${BUILD_NUMBER}
+                    docker push ${AR_IMAGE}:${BUILD_NUMBER}
                 '''
-            }
-        }
-                        gcloud auth configure-docker ${AR_LOCATION}-docker.pkg.dev --quiet
-                        docker tag ${IMAGE_NAME}:${BUILD_NUMBER} ${AR_IMAGE}:${BUILD_NUMBER}
-                        docker push ${AR_IMAGE}:${BUILD_NUMBER}
-                    '''
-                }
             }
         }
         stage('Trivy Image Scan') {
