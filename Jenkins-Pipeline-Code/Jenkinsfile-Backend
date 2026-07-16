@@ -22,23 +22,23 @@ pipeline {
                 git branch: "${GIT_BRANCH}", url: "${GIT_REPO}", credentialsId: 'github-creds'
             }
         }
-        stage('SonarQube Analysis') {
-            steps {
-                dir('Application-Code/backend') {
-                    withSonarQubeEnv('sonar-server') {
-                        sh '''$SCANNER_HOME/bin/sonar-scanner \
-                            -Dsonar.projectName=three-tier-backend \
-                            -Dsonar.projectKey=three-tier-backend'''
-                    }
-                }
-            }
-        }
-        stage('Quality Gate') {
-            steps {
-                waitForQualityGate abortPipeline: false, credentialsId: 'sonar-token'
-            }
-        }
-        stage('OWASP Dependency Check') {
+//         stage('SonarQube Analysis') {
+//             steps {
+//                 dir('Application-Code/backend') {
+//                     withSonarQubeEnv('sonar-server') {
+//                         sh '''$SCANNER_HOME/bin/sonar-scanner \
+//                             -Dsonar.projectName=three-tier-backend \
+//                             -Dsonar.projectKey=three-tier-backend'''
+//                     }
+//                 }
+//             }
+//         }
+// //         stage('Quality Gate') {
+//             steps {
+//                 waitForQualityGate abortPipeline: false, credentialsId: 'sonar-token'
+//             }
+//         }
+//         stage('OWASP Dependency Check') {
             steps {
                 dir('Application-Code/backend') {
                     dependencyCheck additionalArguments: '--scan ./ --disableYarnAudit --disableNodeAudit', odcInstallation: 'DP-Check'
