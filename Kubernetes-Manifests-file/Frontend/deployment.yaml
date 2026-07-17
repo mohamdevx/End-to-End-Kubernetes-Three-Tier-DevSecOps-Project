@@ -23,7 +23,7 @@ spec:
     spec: 
       containers:
       - name: frontend
-        image: us-central1-docker.pkg.dev/project-e68c2595-021c-4ce6-b62/three-tier-repo/frontend:1
+        image: us-central1-docker.pkg.dev/project-e68c2595-021c-4ce6-b62/three-tier-repo/frontend:2
         imagePullPolicy: Always
         env:
           - name: REACT_APP_BACKEND_URL
