@@ -57,7 +57,8 @@ A full DevSecOps pipeline that builds, scans, and deploys a three‑tier applica
 ### 1. Start Minikube
 
 ```bash
-minikube start --cpus=4 --memory=8192 nable the Ingress addon:
+minikube start --cpus=4 --memory=8192
+Enable the Ingress addon:
 
 bash
 minikube addons enable ingress
@@ -337,4 +338,3 @@ Mohammad – GitHub Profile
 
 Adapted from Aman Pathak's AWS‑based DevSecOps project.
 
-Happy building! Remember, the entire project is just a git clone away.
